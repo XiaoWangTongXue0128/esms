@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyi.mapper.JdItemMapper" >
+  <resultMap id="BaseResultMap" type="com.duyi.bean.JdItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_num" property="productNum" jdbcType="INTEGER" />
+    <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jd_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertJdItem" parameterType="com.duyi.bean.JdItem" useGeneratedKeys="true" keyProperty="id">
+    insert into jd_item ( order_id, product_id,
+      product_num, product_price)
+    values ( #{orderId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER},
+      #{productNum,jdbcType=INTEGER}, #{productPrice,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duyi.bean.JdItem" >
+    update jd_item
+    set order_id = #{orderId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      product_num = #{productNum,jdbcType=INTEGER},
+      product_price = #{productPrice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, order_id, product_id, product_num, product_price
+    from jd_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, order_id, product_id, product_num, product_price
+    from jd_item
+  </select>
+</mapper>

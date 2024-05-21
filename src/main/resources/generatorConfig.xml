@@ -1,0 +1,54 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--连接数据库jar 这里选择自己本地位置-->
+    <!--msyql-->
+    <classPathEntry location="D:/IntelliJ_IDEA/Plugins/mysql/mysql-connector-java-8.0.30.jar"/>
+
+    <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包-->
+    <context id="simple" targetRuntime="MyBatis3Simple">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/esms?serverTimezone=UTC"
+                        userId="root"
+                        password="52mq"
+        />
+
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.duyi.bean" targetProject="src/main/java">
+            <!-- 去除字段前后空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="com.duyi.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.duyi.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+
+        <!--         要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名(可不写，有默认)-->
+        <!--<table tableName="rl_wallet" domainObjectName="Wallet" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        
+        
+<!--        <table tableName="jd_user" domainObjectName="JdUser"/>-->
+<!--        <table tableName="jd_category" domainObjectName="JdCategory"/>-->
+<!--        <table tableName="jd_product" domainObjectName="JdProduct"/>-->
+<!--        <table tableName="jd_receive_address" domainObjectName="JdReceiveAddress"/>-->
+        <table tableName="jd_order" domainObjectName="JdOrder"/>
+        <table tableName="jd_item" domainObjectName="JdItem"/>
+    </context>
+</generatorConfiguration>

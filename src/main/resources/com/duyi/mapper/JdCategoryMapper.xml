@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyi.mapper.JdCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.duyi.bean.JdCategory" >
+    <id column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="turn" property="turn" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jd_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.duyi.bean.JdCategory" >
+    insert into jd_category (category_id, name, turn, 
+      description, parent_id)
+    values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{turn,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duyi.bean.JdCategory" >
+    update jd_category
+    set name = #{name,jdbcType=VARCHAR},
+      turn = #{turn,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select category_id, name, turn, description, parent_id
+    from jd_category
+    where parent_id = #{parentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select category_id, name, turn, description, parent_id
+    from jd_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select category_id, name, turn, description, parent_id
+    from jd_category
+  </select>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+<!--	开启spring组件扫描-->
+	<context:component-scan base-package="com.duyi"></context:component-scan>
+<!--	开启请求相应的注解编程-->
+	<mvc:annotation-driven></mvc:annotation-driven>
+<!--	放行静态资源请求-->
+	<mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+<!--    导入外部文件-->
+<!--	<context:property-placeholder location="jdbc.properties" />-->
+<!--	管理数据源（连接池）-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+<!--		<property name="driverClassName" value="${jdbc.driver}"/>-->
+<!--		<property name="url" value="${jdbc.url}"/>-->
+<!--		<property name="username" value="${jdbc.username}"/>-->
+<!--		<property name="password" value="${jdbc.password}"/>-->
+
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/esms?characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC&amp;rewriteBatchedStatements=true&amp;zeroDateTimeBehavior=convertToNull"/>
+		<property name="username" value="wtc"/>
+		<property name="password" value="52mq"/>
+
+<!--		<property name="maxActive" value="${maxActive}"/>-->
+<!--		<property name="maxIdle" value="${maxIdle}"/>-->
+<!--		<property name="minIdle" value="${minIdle}"/>-->
+<!--		<property name="maxWait" value="${maxWait}"/>-->
+
+	</bean>
+
+
+<!-- 管理工厂 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:com/duyi/mapper/*.xml"/>
+
+	</bean>
+
+<!--根据指定的包批量生成mapper的实现类,默认自动加载管理工厂sqlSessionFactoryBean-->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.duyi.mapper" />
+	</bean>
+
+
+<!--	视图处理-->
+	<bean id="viewResolver"
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!--		添加前缀-->
+		<property name="prefix" value="/WEB-INF/"></property>
+<!--		添加后缀-->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+<!--	开启声明式事务-->
+	<tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+<!--	配置事务管理器-->
+<!--	maven引入外部库的依赖：Maven: org.springframework:spring-jdbc:4.3.9.RELEASE包下
+的org.springframework.jdbc.datasource.DataSourceTransactionManager类-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+</beans>
+
+
+

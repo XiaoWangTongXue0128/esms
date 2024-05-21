@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyi.mapper.JdOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.duyi.bean.JdOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
+    <result column="payment_id" property="paymentId" jdbcType="INTEGER" />
+    <result column="invoice_id" property="invoiceId" jdbcType="INTEGER" />
+    <result column="reveive_address_id" property="reveiveAddressId" jdbcType="INTEGER" />
+    <result column="bak" property="bak" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jd_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertJdOrder" parameterType="com.duyi.bean.JdOrder"
+          useGeneratedKeys="true" keyProperty="orderId">
+    insert into jd_order (user_id, status,
+      order_time, total_price, payment_id, 
+      invoice_id, reveive_address_id, bak
+      )
+    values (#{userId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR},
+      #{orderTime,jdbcType=TIMESTAMP}, #{totalPrice,jdbcType=DOUBLE}, #{paymentId,jdbcType=INTEGER}, 
+      #{invoiceId,jdbcType=INTEGER}, #{reveiveAddressId,jdbcType=INTEGER}, #{bak,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duyi.bean.JdOrder" >
+    update jd_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      total_price = #{totalPrice,jdbcType=DOUBLE},
+      payment_id = #{paymentId,jdbcType=INTEGER},
+      invoice_id = #{invoiceId,jdbcType=INTEGER},
+      reveive_address_id = #{reveiveAddressId,jdbcType=INTEGER},
+      bak = #{bak,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateOrderStatus">
+    update jd_order
+    set status = #{status,jdbcType=VARCHAR} where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select order_id, user_id, status, order_time, total_price, payment_id, invoice_id, 
+    reveive_address_id, bak
+    from jd_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select order_id, user_id, status, order_time, total_price, payment_id, invoice_id, 
+    reveive_address_id, bak
+    from jd_order
+  </select>
+  <select id="selectOrderList" resultMap="BaseResultMap">
+    select order_id, user_id, status, order_time, total_price, payment_id, invoice_id,
+           reveive_address_id, bak from jd_order 
+    where user_id =#{userId,jdbcType=INTEGER}
+    <if test="status != null and status !=''">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

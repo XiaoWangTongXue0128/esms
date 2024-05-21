@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyi.mapper.JdUserMapper" >
+  <resultMap id="BaseResultMap" type="com.duyi.bean.JdUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Province" property="province" jdbcType="VARCHAR" />
+    <result column="recommender" property="recommender" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="Location" property="location" jdbcType="VARCHAR" />
+    <result column="School" property="school" jdbcType="VARCHAR" />
+    <result column="Company" property="company" jdbcType="VARCHAR" />
+    <result column="card_INT" property="cardInt" jdbcType="VARCHAR" />
+    <result column="Mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="msn" property="msn" jdbcType="VARCHAR" />
+    <result column="Qq" property="qq" jdbcType="VARCHAR" />
+    <result column="Website" property="website" jdbcType="VARCHAR" />
+    <result column="send_address" property="sendAddress" jdbcType="VARCHAR" />
+    <result column="Zipcode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="Hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="verify_flag" property="verifyFlag" jdbcType="VARCHAR" />
+    <result column="verify_code" property="verifyCode" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="Area" property="area" jdbcType="VARCHAR" />
+    <result column="head_pic" property="headPic" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jd_user
+    where user_id= #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertJdUser" parameterType="com.duyi.bean.JdUser" >
+    insert into jd_user (login_name, Password,Email,recommender,last_login_time)
+    values (#{loginName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{recommender,jdbcType=VARCHAR}, now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duyi.bean.JdUser" >
+    update jd_user
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      grade_id = #{gradeId,jdbcType=INTEGER},
+      Password = #{password,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      Province = #{province,jdbcType=VARCHAR},
+      recommender = #{recommender,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Birth = #{birth,jdbcType=TIMESTAMP},
+      Location = #{location,jdbcType=VARCHAR},
+      School = #{school,jdbcType=VARCHAR},
+      Company = #{company,jdbcType=VARCHAR},
+      card_INT = #{cardInt,jdbcType=VARCHAR},
+      Mobile = #{mobile,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      msn = #{msn,jdbcType=VARCHAR},
+      Qq = #{qq,jdbcType=VARCHAR},
+      Website = #{website,jdbcType=VARCHAR},
+      send_address = #{sendAddress,jdbcType=VARCHAR},
+      Zipcode = #{zipcode,jdbcType=VARCHAR},
+      Hobby = #{hobby,jdbcType=VARCHAR},
+      verify_flag = #{verifyFlag,jdbcType=VARCHAR},
+      verify_code = #{verifyCode,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      Area = #{area,jdbcType=VARCHAR},
+      head_pic = #{headPic,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id as userId, login_name as loginName, nick_name as nickName,
+           real_name as realName, grade_id as gradeId, Password as password,
+           Email as email, Province as province, recommender as recommender,
+           Sex as sex, Birth as birth, Location as location,
+           School as school, Company as company, card_INT as cardInt,
+           Mobile as mobile, Phone as phone, msn as msn,
+           Qq as qq, Website as website, send_address as sendAddress,
+           Zipcode as zipcode, Hobby as hobby, verify_flag as verifyFlag,
+           verify_code as verifyCode, last_login_time as lastLoginTime, last_login_ip as lastLoginIp,
+           Area as area, head_pic as headPic
+    from jd_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select user_id as userId, login_name as loginName, nick_name as nickName,
+           real_name as realName, grade_id as gradeId, Password as password,
+           Email as email, Province as province, recommender as recommender,
+           Sex as sex, Birth as birth, Location as location,
+           School as school, Company as company, card_INT as cardInt,
+           Mobile as mobile, Phone as phone, msn as msn,
+           Qq as qq, Website as website, send_address as sendAddress,
+           Zipcode as zipcode, Hobby as hobby, verify_flag as verifyFlag,
+           verify_code as verifyCode, last_login_time as lastLoginTime, last_login_ip as lastLoginIp,
+           Area as area, head_pic as headPic
+    from jd_user
+  </select>
+  <select id="selectByLoginName1" parameterType="string" resultType="com.duyi.bean.JdUser">
+    select user_id as userId, login_name as loginName, nick_name as nickName,
+           real_name as realName, grade_id as gradeId, Password as password,
+           Email as email, Province as province, recommender as recommender,
+           Sex as sex, Birth as birth, Location as location,
+           School as school, Company as company, card_INT as cardInt,
+           Mobile as mobile, Phone as phone, msn as msn,
+           Qq as qq, Website as website, send_address as sendAddress,
+           Zipcode as zipcode, Hobby as hobby, verify_flag as verifyFlag,
+           verify_code as verifyCode, last_login_time as lastLoginTime, last_login_ip as lastLoginIp,
+           Area as area, head_pic as headPic
+    from jd_user where login_name=#{loginName}
+  </select>
+  <select id="selectByLoginName2" resultType="com.duyi.bean.JdUser">
+    select user_id as userId, login_name as loginName, nick_name as nickName,
+           real_name as realName, grade_id as gradeId, Password as password,
+           Email as email, Province as province, recommender as recommender,
+           Sex as sex, Birth as birth, Location as location,
+           School as school, Company as company, card_INT as cardInt,
+           Mobile as mobile, Phone as phone, msn as msn,
+           Qq as qq, Website as website, send_address as sendAddress,
+           Zipcode as zipcode, Hobby as hobby, verify_flag as verifyFlag,
+           verify_code as verifyCode, last_login_time as lastLoginTime, last_login_ip as lastLoginIp,
+           Area as area, head_pic as headPic
+    from jd_user where login_name=#{loginName}
+  </select>
+</mapper>

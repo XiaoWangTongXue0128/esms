@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duyi.mapper.JdProductMapper" >
+  <resultMap id="BaseResultMap" type="com.duyi.bean.JdProduct" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="big_picture" property="bigPicture" jdbcType="VARCHAR" />
+    <result column="fixed_price" property="fixedPrice" jdbcType="INTEGER" />
+    <result column="lower_price" property="lowerPrice" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="publishing" property="publishing" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="isbn" property="isbn" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="which_edtion" property="whichEdtion" jdbcType="VARCHAR" />
+    <result column="total_page" property="totalPage" jdbcType="VARCHAR" />
+    <result column="bind_layout" property="bindLayout" jdbcType="VARCHAR" />
+    <result column="book_size" property="bookSize" jdbcType="VARCHAR" />
+    <result column="editor_description" property="editorDescription" jdbcType="VARCHAR" />
+    <result column="catalog" property="catalog" jdbcType="VARCHAR" />
+    <result column="book_summary" property="bookSummary" jdbcType="VARCHAR" />
+    <result column="author_summary" property="authorSummary" jdbcType="VARCHAR" />
+    <result column="extracts" property="extracts" jdbcType="VARCHAR" />
+    <result column="print_time" property="printTime" jdbcType="TIMESTAMP" />
+    <result column="print_int" property="printInt" jdbcType="INTEGER" />
+    <result column="paper_type" property="paperType" jdbcType="VARCHAR" />
+    <result column="print_frequency" property="printFrequency" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jd_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.duyi.bean.JdProduct" >
+    insert into jd_product (product_id, name, keywords, 
+      add_time, picture, big_picture, 
+      fixed_price, lower_price, description, 
+      author, publishing, publish_time, 
+      isbn, language, which_edtion, 
+      total_page, bind_layout, book_size, 
+      editor_description, catalog, book_summary, 
+      author_summary, extracts, print_time, 
+      print_int, paper_type, print_frequency
+      )
+    values (#{productId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{picture,jdbcType=VARCHAR}, #{bigPicture,jdbcType=VARCHAR}, 
+      #{fixedPrice,jdbcType=INTEGER}, #{lowerPrice,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{publishing,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{isbn,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{whichEdtion,jdbcType=VARCHAR}, 
+      #{totalPage,jdbcType=VARCHAR}, #{bindLayout,jdbcType=VARCHAR}, #{bookSize,jdbcType=VARCHAR}, 
+      #{editorDescription,jdbcType=VARCHAR}, #{catalog,jdbcType=VARCHAR}, #{bookSummary,jdbcType=VARCHAR}, 
+      #{authorSummary,jdbcType=VARCHAR}, #{extracts,jdbcType=VARCHAR}, #{printTime,jdbcType=TIMESTAMP}, 
+      #{printInt,jdbcType=INTEGER}, #{paperType,jdbcType=VARCHAR}, #{printFrequency,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duyi.bean.JdProduct" >
+    update jd_product
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      picture = #{picture,jdbcType=VARCHAR},
+      big_picture = #{bigPicture,jdbcType=VARCHAR},
+      fixed_price = #{fixedPrice,jdbcType=INTEGER},
+      lower_price = #{lowerPrice,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      publishing = #{publishing,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      which_edtion = #{whichEdtion,jdbcType=VARCHAR},
+      total_page = #{totalPage,jdbcType=VARCHAR},
+      bind_layout = #{bindLayout,jdbcType=VARCHAR},
+      book_size = #{bookSize,jdbcType=VARCHAR},
+      editor_description = #{editorDescription,jdbcType=VARCHAR},
+      catalog = #{catalog,jdbcType=VARCHAR},
+      book_summary = #{bookSummary,jdbcType=VARCHAR},
+      author_summary = #{authorSummary,jdbcType=VARCHAR},
+      extracts = #{extracts,jdbcType=VARCHAR},
+      print_time = #{printTime,jdbcType=TIMESTAMP},
+      print_int = #{printInt,jdbcType=INTEGER},
+      paper_type = #{paperType,jdbcType=VARCHAR},
+      print_frequency = #{printFrequency,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select product_id, name, keywords, add_time, picture, big_picture, fixed_price, lower_price, 
+    description, author, publishing, publish_time, isbn, language, which_edtion, total_page, 
+    bind_layout, book_size, editor_description, catalog, book_summary, author_summary, 
+    extracts, print_time, print_int, paper_type, print_frequency
+    from jd_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select product_id, name, keywords, add_time, picture, big_picture, fixed_price, lower_price, 
+    description, author, publishing, publish_time, isbn, language, which_edtion, total_page, 
+    bind_layout, book_size, editor_description, catalog, book_summary, author_summary, 
+    extracts, print_time, print_int, paper_type, print_frequency
+    from jd_product
+  </select>
+<!--  根据页面信息查询产品列表-->
+  <select id="selectProductList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select jp.* from jd_product as  jp inner  join jd_category_product as jcp on jp.product_id = jcp.product_id
+      where jcp.category_id = #{categoryId} order by ${order_std} ${order_type} limit #{start_pos}, #{page_size}
+  </select>
+  <!--  获取产品总数-->
+  <select id="selectProductSum" resultType="int" parameterType="java.lang.Integer" >
+    select count(product_id) from jd_category_product
+    where category_id = #{categoryId}
+  </select>
+
+
+</mapper>
